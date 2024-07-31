@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'drf_multiple_model',
     'django_summernote',
     'django_cleanup',
-    'accounts',
     'preconstruction',
     'drf_yasg',
 ]
@@ -47,7 +46,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
-ROOT_URLCONF = 'homebaba_api.urls'
+ROOT_URLCONF = 'farah_api.urls'
 DATA_UPLOAD_MAX_MEMORY_SIZE = None
 TEMPLATES = [
     {
@@ -65,10 +64,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'homebaba_api.wsgi.application'
+WSGI_APPLICATION = 'farah_api.wsgi.application'
 
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = None
+
 """ 
 DATABASES = {
     'default': {
@@ -81,9 +81,9 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dolphy',
-        'USER': 'dolphy_admin',
-        'PASSWORD': 'dolphyadminpassword',
+        'NAME': 'farah',
+        'USER': 'farah_admin',
+        'PASSWORD': 'farahadminpassword',
         'HOST': 'localhost',
         'PORT': '',
     }

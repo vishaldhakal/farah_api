@@ -1,9 +1,6 @@
 from django.db import models
 from django_summernote.fields import SummernoteTextField
-from accounts.models import Agent
 from django.db.models import Case, When, Value, IntegerField
-
-
 
 class Developer(models.Model):
     image = models.FileField()
@@ -111,14 +108,6 @@ class PreConstructionFloorPlan(models.Model):
         return self.floorplan.url
 
 
-class Event(models.Model):
-    event_description = SummernoteTextField(blank=True)
-    event_date = models.DateTimeField()
-    event_link = models.CharField(max_length=2000, default="#")
-    event_title = models.CharField(max_length=1000, blank=True)
-
-    def __str__(self):
-        return self.event_title
 
 
 class News(models.Model):
@@ -133,24 +122,3 @@ class News(models.Model):
 
     def __str__(self):
         return self.event_title
-
-
-class Favourite(models.Model):
-    agent = models.ForeignKey(
-        Agent, on_delete=models.CASCADE, related_name="agent")
-    preconstruction = models.ForeignKey(
-        PreConstruction, on_delete=models.CASCADE, related_name="preconstruction")
-
-
-class FavouriteNews(models.Model):
-    agent = models.ForeignKey(
-        Agent, on_delete=models.CASCADE, related_name="news_agent")
-    news = models.ForeignKey(
-        News, on_delete=models.CASCADE, related_name="news")
-
-
-class FavouriteEvent(models.Model):
-    agent = models.ForeignKey(
-        Agent, on_delete=models.CASCADE, related_name="event_agent")
-    event = models.ForeignKey(
-        Event, on_delete=models.CASCADE, related_name="event")

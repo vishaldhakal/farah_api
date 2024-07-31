@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Developer, City, PreConstruction, PreConstructionImage, PreConstructionFloorPlan, Event, News, Favourite
-from accounts.serializers import AgentSerializer
+from .models import Developer, City, PreConstruction, PreConstructionImage, PreConstructionFloorPlan, News
 
 
 class DeveloperSerializer(serializers.ModelSerializer):
@@ -95,13 +94,6 @@ class PreConstructionSerializerSmall(serializers.ModelSerializer):
         ordering = ['last_updated']
 
 
-class EventSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Event
-        fields = '__all__'
-        ordering = ['event_date']
-
-
 class NewsSerializer(serializers.ModelSerializer):
     city = CitySerializer()
 
@@ -109,12 +101,3 @@ class NewsSerializer(serializers.ModelSerializer):
         model = News
         fields = '__all__'
         ordering = ['date_of_upload']
-
-
-class FavouriteSerializer(serializers.ModelSerializer):
-    agent = AgentSerializer()
-    preconstruction = PreConstructionSerializer()
-
-    class Meta:
-        model = Favourite
-        fields = '__all__'

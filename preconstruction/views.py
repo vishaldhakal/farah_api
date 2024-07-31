@@ -1,23 +1,14 @@
 import re
 from rest_framework import status
-from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage
-from rest_framework.parsers import JSONParser
+from django.core.mail import EmailMessage
 from django.http.response import JsonResponse
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import HttpResponse
 from rest_framework.decorators import api_view
-from django.conf import settings
 from rest_framework.response import Response
-from .models import Developer, PreConstruction, PreConstructionImage, City, PreConstructionFloorPlan, Event, News, Favourite
+from .models import Developer, PreConstruction, PreConstructionImage, City, PreConstructionFloorPlan, News
+from .serializers import DeveloperSerializer, PreConstructionSerializer, CitySerializer, PreConstructionImageSerializer, PreConstructionFloorPlanSerializer, NewsSerializer,PreConstructionSerializerSmall, CitySerializerSmall, CitySerializerSmallSearch, PreConstructionSearchSerializer2
 from rest_framework.pagination import PageNumberPagination
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-import json
-import math
-import csv
-from accounts.models import Agent
-import datetime
 from rest_framework import generics
-from .serializers import *
 from django.utils.text import slugify
 from geopy.geocoders import Nominatim
 
@@ -275,17 +266,6 @@ def PreConstructionsCityView(request, slug):
     serializer = PreConstructionSerializerSmall(preconstructions, many=True)
     return Response({"city": cityser.data, "preconstructions": serializer.data})
 
-
-class EventListCreateView(generics.ListCreateAPIView):
-    queryset = Event.objects.all()
-    serializer_class = EventSerializer
-
-
-class EventRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Event.objects.all()
-    serializer_class = EventSerializer
-
-
 class NewsListCreateView(generics.ListCreateAPIView):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
@@ -397,15 +377,6 @@ class CityRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
-
-class FavouriteListCreateView(generics.ListCreateAPIView):
-    queryset = Favourite.objects.all()
-    serializer_class = FavouriteSerializer
-
-
-class FavouriteRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Favourite.objects.all()
-    serializer_class = FavouriteSerializer
 
 
 @api_view(['DELETE'])
